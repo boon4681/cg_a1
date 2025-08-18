@@ -15,6 +15,7 @@ import engine.tick.Ticker;
 import frames.Frame1;
 import frames.Frame2;
 import frames.Frame3;
+import frames.Frame4;
 
 class Main {
     public static void main(String[] args) {
@@ -29,6 +30,7 @@ class Main {
         Frame1.setup(window);
         Frame2.setup(window);
         Frame3.setup(window);
+        Frame4.setup(window);
 
         Ticker ticker = new Ticker(window);
         ticker.start();

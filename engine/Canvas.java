@@ -130,16 +130,23 @@ public class Canvas extends JPanel implements Tickable {
             double strokeWidth
     //
     ) {
-        double length = Math.hypot(x1 - x2, y1 - y2) + Math.hypot(x2 - x3, y2 - y3) + Math.hypot(x3 - x4, y3 - y4);
-        int steps = Math.max(1, (int) Math.round(length));
-
-        for (int i = 0; i <= steps; i++) {
-            double t = (double) i / steps;
-            double v = 1 - t;
-            double xt = v * v * v * x1 + 3 * t * v * v * x2 + 3 * t * t * v * x3 + t * t * t * x4;
-            double yt = v * v * v * y1 + 3 * t * v * v * y2 + 3 * t * t * v * y3 + t * t * t * y4;
-            dot(Math.round(xt), Math.round(yt), strokeWidth);
+        for(double t = 0; t <= 1; t += 0.01) {
+            double xt = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2
+                    + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4;
+            double yt = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2
+                    + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4;
+            dot(xt, yt, strokeWidth);
         }
+        // double length = Math.hypot(x1 - x2, y1 - y2) + Math.hypot(x2 - x3, y2 - y3) + Math.hypot(x3 - x4, y3 - y4);
+        // int steps = Math.max(1, (int) Math.round(length));
+
+        // for (int i = 0; i <= steps; i++) {
+        //     double t = (double) i / steps;
+        //     double v = 1 - t;
+        //     double xt = v * v * v * x1 + 3 * t * v * v * x2 + 3 * t * t * v * x3 + t * t * t * x4;
+        //     double yt = v * v * v * y1 + 3 * t * v * v * y2 + 3 * t * t * v * y3 + t * t * t * y4;
+        //     dot(Math.round(xt), Math.round(yt), strokeWidth);
+        // }
     }
 
     public void fill(double startX, double startY, Color fillColor, int tolerance, int kernelSize) {
