@@ -1,12 +1,12 @@
 package frames;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.Canvas;
 import engine.Painter;
-import engine.Window;
 import engine.operation.COLOR;
 import engine.operation.CURVE;
 import engine.operation.FILL_COLOR;
@@ -16,10 +16,41 @@ import engine.operation.SMALL_CURVE;
 import engine.operation.iterfaces.IOperation;
 
 public class Frame1 {
-    public static ArrayList<Canvas> list = new ArrayList<>();
-    public static void setup(Window window) {
+    public static ArrayList<BufferedImage> render() {
+        ArrayList<BufferedImage> list = new ArrayList<>();
         {
-            Canvas canvas = new Canvas(window, "layer0", 600, 600);
+            List<IOperation> plan = List.of(
+                    new COLOR(new Color(0, 0, 0)),
+                    new MOVE(89, 424),
+                    new LINE(568, 422),
+                    new MOVE(44, 263),
+                    new SMALL_CURVE(53, 259, 62, 237),
+                    new SMALL_CURVE(68, 251, 82, 259),
+                    new SMALL_CURVE(66, 267, 63, 285),
+                    new SMALL_CURVE(59, 267, 46, 265),
+                    new MOVE(120, 168),
+                    new SMALL_CURVE(114, 179, 100, 191),
+                    new SMALL_CURVE(107, 192, 120, 210),
+                    new SMALL_CURVE(117, 194, 139, 189),
+                    new SMALL_CURVE(122, 181, 121, 167),
+                    new MOVE(296, 183),
+                    new CURVE(275, 180, 288, 211, 299, 204),
+                    new SMALL_CURVE(315, 189, 296, 183),
+                    new MOVE(308, 260),
+                    new SMALL_CURVE(316, 252, 328, 242),
+                    new SMALL_CURVE(328, 252, 349, 263),
+                    new SMALL_CURVE(330, 263, 328, 281),
+                    new SMALL_CURVE(321, 269, 308, 261));
+            List<FILL_COLOR> fill_plan = List.of(
+                    new FILL_COLOR(65, 255, new Color(254, 219, 119, 255)),
+                    new FILL_COLOR(328, 259, new Color(254, 219, 119, 255)),
+                    new FILL_COLOR(294, 194, new Color(254, 219, 119, 255)),
+                    new FILL_COLOR(112, 189, new Color(254, 219, 119, 255)));
+
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
+        }
+        {
             List<IOperation> plan = List.of(
                     new COLOR(new Color(0, 0, 0)),
                     new MOVE(121, 424),
@@ -94,46 +125,9 @@ public class Frame1 {
                     new FILL_COLOR(144, 271, new Color(0, 0, 0, 255)),
                     new FILL_COLOR(428, 396, new Color(255, 255, 255, 255)),
                     new FILL_COLOR(407, 406, new Color(0, 0, 0, 255)));
-
-            canvas.add(new Painter(canvas, plan, fill_plan));
-            window.add(canvas);
-            canvas.setVisible(false);
-            list.add(canvas);
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
         }
-        {
-            Canvas canvas = new Canvas(window, "layer0", 600, 600);
-            List<IOperation> plan = List.of(
-                    new COLOR(new Color(0, 0, 0)),
-                    new MOVE(89, 424),
-                    new LINE(568, 422),
-                    new MOVE(44, 263),
-                    new SMALL_CURVE(53, 259, 62, 237),
-                    new SMALL_CURVE(68, 251, 82, 259),
-                    new SMALL_CURVE(66, 267, 63, 285),
-                    new SMALL_CURVE(59, 267, 46, 265),
-                    new MOVE(120, 168),
-                    new SMALL_CURVE(114, 179, 100, 191),
-                    new SMALL_CURVE(107, 192, 120, 210),
-                    new SMALL_CURVE(117, 194, 139, 189),
-                    new SMALL_CURVE(122, 181, 121, 167),
-                    new MOVE(296, 183),
-                    new CURVE(275, 180, 288, 211, 299, 204),
-                    new SMALL_CURVE(315, 189, 296, 183),
-                    new MOVE(308, 260),
-                    new SMALL_CURVE(316, 252, 328, 242),
-                    new SMALL_CURVE(328, 252, 349, 263),
-                    new SMALL_CURVE(330, 263, 328, 281),
-                    new SMALL_CURVE(321, 269, 308, 261));
-            List<FILL_COLOR> fill_plan = List.of(
-                    new FILL_COLOR(65, 255, new Color(254, 219, 119, 255)),
-                    new FILL_COLOR(328, 259, new Color(254, 219, 119, 255)),
-                    new FILL_COLOR(294, 194, new Color(254, 219, 119, 255)),
-                    new FILL_COLOR(112, 189, new Color(254, 219, 119, 255)));
-
-            canvas.add(new Painter(canvas, plan, fill_plan));
-            window.add(canvas);
-            canvas.setVisible(false);
-            list.add(canvas);
-        }
+        return list;
     }
 }

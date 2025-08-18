@@ -1,39 +1,40 @@
 import java.awt.Color;
-import java.rmi.server.Operation;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.awt.Frame;
+import java.awt.Graphics2D;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
-import javax.swing.JFrame;
-
-import engine.Canvas;
-import engine.Painter;
-import engine.Window;
-import engine.operation.*;
-import engine.operation.iterfaces.IOperation;
+import engine.Animation;
+import engine.IFrame;
 import engine.tick.Ticker;
 import frames.Frame1;
 import frames.Frame2;
 import frames.Frame3;
 import frames.Frame4;
 
-class Main {
+public class Main {
+
     public static void main(String[] args) {
-        Window window = new Window("WHAT THE HEYYYY!!");
-        window.setSize(600, 600 + 37);
-        window.setVisible(true);
-        window.setBackground(Color.BLACK);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setLayout(null);
-        window.setResizable(false);
+        Frame frame = new Frame("WHAT THE HEYYYY!!");
+        frame.setSize(600, 600);
+        Animation animtion = new Animation(true);
 
-        Frame1.setup(window);
-        Frame2.setup(window);
-        Frame3.setup(window);
-        Frame4.setup(window);
+        animtion.addFrame(Frame1.render(), 200);
+        animtion.addFrame(Frame2.render(), 200);
+        animtion.addFrame(Frame3.render(), 200);
+        animtion.addFrame(Frame4.render(), 200);
+        Ticker animationCanvas = new Ticker(animtion);
 
-        Ticker ticker = new Ticker(window);
-        ticker.start();
-        window.repaint();
+        frame.add(animationCanvas);
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

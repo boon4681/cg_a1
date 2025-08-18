@@ -1,12 +1,11 @@
 package frames;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.Canvas;
 import engine.Painter;
-import engine.Window;
 import engine.operation.COLOR;
 import engine.operation.CURVE;
 import engine.operation.FILL_COLOR;
@@ -16,11 +15,9 @@ import engine.operation.SMALL_CURVE;
 import engine.operation.iterfaces.IOperation;
 
 public class Frame2 {
-    public static ArrayList<Canvas> list = new ArrayList<>();
-
-    public static void setup(Window window) {
+    public static ArrayList<BufferedImage> render() {
+        ArrayList<BufferedImage> list = new ArrayList<>();
         {
-            Canvas canvas = new Canvas(window, "layer0", 600, 600);
             List<IOperation> plan = List.of(
                     new COLOR(new Color(0, 0, 0)),
                     new MOVE(128, 423),
@@ -98,13 +95,10 @@ public class Frame2 {
             //
             );
 
-            canvas.add(new Painter(canvas, plan, fill_plan));
-            window.add(canvas);
-            canvas.setVisible(false);
-            list.add(canvas);
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
         }
         {
-            Canvas canvas = new Canvas(window, "layer1", 600, 600);
             List<IOperation> plan = List.of(
                     new COLOR(new Color(0, 0, 0)),
                     new MOVE(39, 264),
@@ -133,10 +127,9 @@ public class Frame2 {
             //
             );
 
-            canvas.add(new Painter(canvas, plan, fill_plan));
-            window.add(canvas);
-            canvas.setVisible(false);
-            list.add(canvas);
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
         }
+        return list;
     }
 }
