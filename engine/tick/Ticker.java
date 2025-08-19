@@ -11,7 +11,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-
 public class Ticker extends Canvas implements Runnable {
 
     private final Animation animation;
@@ -23,9 +22,8 @@ public class Ticker extends Canvas implements Runnable {
 
     public Ticker(Animation animation) {
         this.animation = animation;
-        setSize(new Dimension(200, 200));
+        setSize(new Dimension(600, 600));
     }
-
 
     @Override
     public void addNotify() {
@@ -40,14 +38,16 @@ public class Ticker extends Canvas implements Runnable {
     }
 
     private void start() {
-        if (running) return;
+        if (running)
+            return;
         running = true;
         animationThread = new Thread(this);
         animationThread.start();
     }
 
     private void stop() {
-        if (!running) return;
+        if (!running)
+            return;
         running = false;
         try {
             animationThread.join();
@@ -67,7 +67,7 @@ public class Ticker extends Canvas implements Runnable {
 
             animation.update(deltaTime);
             render();
-            
+
             long loopTime = System.currentTimeMillis() - lastUpdateTime;
             if (loopTime < OPTIMAL_TIME) {
                 try {
@@ -89,31 +89,9 @@ public class Ticker extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, getWidth(), getHeight());
 
-
         BufferedImage currentFrame = animation.getCurrentImage();
         if (currentFrame != null) {
-            int imgWidth = currentFrame.getWidth();
-            int imgHeight = currentFrame.getHeight();
-            double imgAspect = (double) imgHeight / imgWidth;
-            
-            int canvasWidth = getWidth();
-            int canvasHeight = getHeight();
-            double canvasAspect = (double) canvasHeight / canvasWidth;
-
-            int x, y, w, h;
-
-            if (imgAspect > canvasAspect) {
-                h = canvasHeight;
-                w = (int) (h / imgAspect);
-                x = (canvasWidth - w) / 2;
-                y = 0;
-            } else {
-                w = canvasWidth;
-                h = (int) (w * imgAspect);
-                x = 0;
-                y = (canvasHeight - h) / 2;
-            }
-            g.drawImage(currentFrame, x, y, w, h, null);
+            g.drawImage(currentFrame, 0, 0, 600, 600, null);
         }
 
         g.dispose();

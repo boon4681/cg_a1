@@ -1,6 +1,7 @@
 package frames;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,40 @@ public class Frame3 {
     public static ArrayList<BufferedImage> render() {
         ArrayList<BufferedImage> list = new ArrayList<>();
         {
+            BufferedImage image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = image.createGraphics();
+            g2d.setColor(new Color(136, 103, 139, 255));
+            g2d.fillRect(0, 0, 600, 600);
+            list.add(image);
+        }
+        {
             List<IOperation> plan = List.of(
                     new COLOR(new Color(0, 0, 0)),
-                    new MOVE(85, 422),
-                    new LINE(564, 421));
-            List<FILL_COLOR> fill_plan = List.of();
+                    new MOVE(213, 200),
+                    new CURVE(209, 212, 199, 235, 211, 251),
+                    new CURVE(204, 255, 188, 323, 273, 360),
+                    new CURVE(317, 377, 312, 351, 344, 348),
+                    new CURVE(404, 343, 403, 259, 407, 246),
+                    new CURVE(404, 220, 399, 220, 406, 199),
+                    new CURVE(401, 183, 383, 188, 394, 208),
+                    new CURVE(391, 241, 381, 182, 363, 174),
+                    new CURVE(352, 167, 340, 162, 325, 142),
+                    new LINE(272, 152),
+                    new CURVE(266, 155, 256, 167, 253, 190),
+                    new CURVE(250, 239, 223, 221, 244, 204),
+                    new CURVE(260, 160, 230, 173, 228, 215),
+                    new CURVE(228, 181, 211, 190, 209, 212),
+                    new MOVE(374, 122),
+                    new CURVE(364, 112, 360, 139, 360, 148),
+                    new CURVE(363, 163, 372, 151, 380, 146),
+                    new CURVE(384, 136, 380, 129, 375, 122)
+            //
+            );
+            List<FILL_COLOR> fill_plan = List.of(
+                    new FILL_COLOR(348, 195, new Color(220, 185, 189, 255)),
+                    new FILL_COLOR(368, 137, new Color(220, 185, 189, 255))
+            //
+            );
 
             Painter painter = new Painter(600, 600, plan, fill_plan);
             list.add(painter.paint());
@@ -30,94 +60,124 @@ public class Frame3 {
         {
             List<IOperation> plan = List.of(
                     new COLOR(new Color(0, 0, 0)),
-                    new MOVE(265, 439),
-                    new CURVE(350, 383, 288, 238, 218, 220),
-                    new CURVE(233, 217, 203, 180, 200, 209),
-                    new CURVE(165, 191, 175, 230, 180, 225),
-                    new CURVE(108, 223, 84, 386, 112, 406),
-                    new CURVE(155, 463, 234, 446, 266, 439),
-                    new CURVE(272, 435, 269, 473, 234, 459),
-                    new SMALL_CURVE(226, 454, 232, 444),
-                    new MOVE(196, 449),
-                    new CURVE(170, 479, 146, 447, 156, 440),
-                    new MOVE(241, 304),
-                    new CURVE(250, 346, 220, 343, 214, 339),
-                    new CURVE(208, 338, 206, 333, 202, 324),
-                    new MOVE(252, 379),
-                    new CURVE(256, 373, 255, 424, 216, 415),
-                    new MOVE(280, 399),
-                    new CURVE(278, 406, 262, 413, 250, 407),
-                    new MOVE(125, 268),
-                    new CURVE(105, 267, 125, 221, 146, 243),
-                    new MOVE(136, 191),
-                    new CURVE(124, 199, 124, 188, 120, 209),
-                    new CURVE(103, 201, 118, 203, 101, 188),
-                    new CURVE(124, 175, 106, 181, 120, 165),
-                    new CURVE(127, 183, 132, 181, 138, 193),
-                    new MOVE(183, 263),
-                    new CURVE(208, 297, 118, 283, 170, 263),
-                    new SMALL_CURVE(176, 262, 186, 265),
-                    new MOVE(210, 283),
-                    new SMALL_CURVE(219, 274, 196, 277),
-                    new MOVE(145, 275),
-                    new CURVE(146, 271, 140, 269, 133, 269),
-                    new MOVE(214, 253),
-                    new SMALL_CURVE(203, 247, 200, 259),
-                    new MOVE(146, 264),
-                    new SMALL_CURVE(144, 263, 137, 259),
-                    new MOVE(84, 261),
-                    new SMALL_CURVE(69, 259, 62, 236),
-                    new SMALL_CURVE(63, 260, 41, 259),
-                    new SMALL_CURVE(58, 264, 64, 281),
-                    new SMALL_CURVE(63, 263, 84, 262),
-                    new MOVE(330, 277),
-                    new SMALL_CURVE(327, 263, 348, 259),
-                    new SMALL_CURVE(331, 254, 328, 238),
-                    new SMALL_CURVE(322, 254, 305, 259),
-                    new SMALL_CURVE(327, 271, 329, 281),
-                    new MOVE(339, 421),
-                    new SMALL_CURVE(339, 329, 417, 323),
-                    new SMALL_CURVE(407, 300, 426, 303),
-                    new SMALL_CURVE(432, 307, 438, 316),
-                    new SMALL_CURVE(439, 291, 468, 307),
-                    new SMALL_CURVE(470, 311, 466, 321),
-                    new SMALL_CURVE(527, 337, 526, 423),
-                    new LINE(342, 423),
-                    new MOVE(382, 422),
-                    new CURVE(398, 411, 380, 378, 360, 405),
-                    new MOVE(439, 423),
-                    new CURVE(420, 405, 456, 385, 465, 405),
-                    new MOVE(442, 401),
-                    new CURVE(443, 402, 435, 381, 434, 385),
-                    new SMALL_CURVE(430, 394, 421, 386),
-                    new SMALL_CURVE(416, 394, 409, 384),
-                    new SMALL_CURVE(401, 392, 392, 383),
-                    new SMALL_CURVE(383, 384, 382, 397),
-                    new MOVE(433, 343),
-                    new SMALL_CURVE(414, 346, 424, 369),
-                    new MOVE(426, 349),
-                    new CURVE(404, 324, 392, 371, 421, 361),
-                    new MOVE(398, 424),
-                    new CURVE(386, 386, 412, 395, 424, 399),
-                    new SMALL_CURVE(430, 409, 423, 424),
-                    new MOVE(454, 353),
-                    new SMALL_CURVE(451, 348, 446, 349),
-                    new MOVE(400, 341),
-                    new SMALL_CURVE(389, 337, 385, 347)
+                    new MOVE(165, 0),
+                    new CURVE(164, 7, 176, 16, 192, 19),
+                    new CURVE(172, 31, 196, 55, 203, 33),
+                    new SMALL_CURVE(204, 48, 220, 55),
+                    new CURVE(200, 67, 207, 118, 221, 144),
+                    new CURVE(223, 179, 208, 179, 211, 202),
+                    new SMALL_CURVE(216, 207, 224, 203),
+                    new CURVE(249, 134, 204, 100, 235, 67),
+                    new CURVE(240, 92, 284, 86, 271, 149),
+                    new CURVE(250, 178, 276, 171, 280, 191),
+                    new CURVE(288, 197, 303, 198, 308, 181),
+                    new CURVE(313, 166, 327, 179, 339, 161),
+                    new CURVE(318, 143, 321, 117, 343, 95),
+                    new CURVE(354, 83, 360, 67, 360, 53),
+                    new CURVE(358, 33, 384, 27, 368, 71),
+                    new CURVE(345, 102, 387, 111, 378, 76),
+                    new CURVE(376, 58, 399, 58, 400, 24),
+                    new SMALL_CURVE(393, 15, 418, 0),
+                    new MOVE(192, 97),
+                    new CURVE(177, 99, 173, 111, 187, 119),
+                    new CURVE(199, 124, 209, 107, 193, 98),
+                    new MOVE(410, 146),
+                    new CURVE(400, 149, 398, 174, 420, 166),
+                    new CURVE(444, 150, 419, 136, 408, 147)
             //
             );
             List<FILL_COLOR> fill_plan = List.of(
-                    new FILL_COLOR(172, 331, new Color(248, 220, 133, 255)),
-                    new FILL_COLOR(171, 271, new Color(240, 175, 127, 255)),
-                    new FILL_COLOR(126, 250, new Color(243, 221, 144, 255)),
-                    new FILL_COLOR(244, 451, new Color(230, 178, 134, 255)),
-                    new FILL_COLOR(172, 451, new Color(222, 180, 140, 255)),
-                    new FILL_COLOR(119, 190, new Color(243, 221, 144, 255)),
-                    new FILL_COLOR(68, 258, new Color(239, 222, 153, 255)),
-                    new FILL_COLOR(328, 255, new Color(243, 221, 144, 255)),
-                    new FILL_COLOR(496, 397, new Color(243, 221, 144, 255)),
-                    new FILL_COLOR(411, 350, new Color(230, 178, 134, 255)),
-                    new FILL_COLOR(406, 409, new Color(0, 0, 0, 255))
+                    new FILL_COLOR(297, 144, new Color(233, 206, 188, 255)),
+                    new FILL_COLOR(413, 153, new Color(233, 206, 188, 255)),
+                    new FILL_COLOR(188, 107, new Color(233, 206, 188, 255))
+            //
+            );
+
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
+        }
+        {
+            List<IOperation> plan = List.of(
+                    new COLOR(new Color(0, 0, 0)),
+                    new MOVE(224, 0),
+                    new CURVE(213, 21, 257, 17, 254, 36),
+                    new CURVE(259, 63, 284, 49, 296, 65),
+                    new CURVE(318, 79, 324, 29, 352, 27),
+                    new SMALL_CURVE(378, 24, 383, 0),
+                    new MOVE(284, 75),
+                    new CURVE(269, 77, 280, 102, 291, 94),
+                    new CURVE(296, 81, 284, 67, 280, 77),
+                    new MOVE(324, 76),
+                    new CURVE(299, 71, 319, 96, 323, 77)
+            //
+            );
+            List<FILL_COLOR> fill_plan = List.of(
+                    new FILL_COLOR(312, 15, new Color(254, 232, 195, 255)),
+                    new FILL_COLOR(285, 87, new Color(254, 232, 195, 255)),
+                    new FILL_COLOR(316, 79, new Color(254, 232, 195, 255))
+            //
+            );
+
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
+        }
+        {
+            List<IOperation> plan = List.of(
+                    new COLOR(new Color(0, 0, 0)),
+                    new MOVE(340, 255),
+                    new CURVE(317, 262, 311, 246, 302, 241),
+                    new LINE(297, 207),
+                    new CURVE(308, 207, 301, 183, 294, 187),
+                    new CURVE(277, 187, 285, 203, 291, 209),
+                    new LINE(292, 247),
+                    new LINE(312, 266),
+                    new CURVE(319, 269, 309, 286, 298, 281),
+                    new LINE(281, 257),
+                    new CURVE(263, 233, 260, 252, 259, 299),
+                    new LINE(275, 300),
+                    new LINE(272, 272),
+                    new LINE(302, 310),
+                    new LINE(340, 296),
+                    new LINE(353, 259),
+                    new LINE(339, 255),
+                    new MOVE(346, 245),
+                    new LINE(336, 238),
+                    new LINE(348, 221),
+                    new CURVE(368, 232, 362, 209, 360, 207),
+                    new CURVE(354, 201, 343, 208, 339, 219),
+                    new LINE(324, 239),
+                    new LINE(338, 253),
+                    new LINE(346, 246)
+            //
+            );
+            List<FILL_COLOR> fill_plan = List.of(
+                    new FILL_COLOR(325, 275, new Color(157, 133, 168, 255)),
+                    new FILL_COLOR(352, 218, new Color(157, 133, 168, 255))
+            //
+            );
+
+            Painter painter = new Painter(600, 600, plan, fill_plan);
+            list.add(painter.paint());
+        }
+        {
+            List<IOperation> plan = List.of(
+                    new COLOR(new Color(0, 0, 0)),
+                    new MOVE(251, 322),
+                    new LINE(287, 335),
+                    new LINE(268, 303),
+                    new CURVE(312, 326, 333, 315, 358, 273),
+                    new CURVE(374, 263, 360, 236, 352, 251),
+                    new LINE(342, 241),
+                    new LINE(335, 244),
+                    new CURVE(346, 259, 344, 262, 338, 282),
+                    new CURVE(330, 280, 324, 282, 326, 296),
+                    new CURVE(298, 303, 270, 291, 261, 287),
+                    new CURVE(239, 274, 255, 299, 268, 322),
+                    new LINE(254, 319)
+            //
+            );
+            List<FILL_COLOR> fill_plan = List.of(
+                    new FILL_COLOR(351, 261, new Color(117, 85, 107, 255))
             //
             );
 
